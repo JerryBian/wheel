@@ -1,0 +1,58 @@
+{{ define "footer" }}
+<footer class="lark-content py-3 mt-4 bg-light text-center small">
+    <span title="commit: {{ .GitHash }}@{{ .BuildTime }}">v{{ .AppVer}}</span>
+    &middot;
+    <a href="https://github.com/JerryBian/wheel">
+        <i class="bi bi-github"></i>
+    </a>
+    &middot;
+    <span>{{ .GoVer }}</span>
+</footer>
+
+<script src="/static/script.min.js?v={{ .AppVer }}"></script>
+<script>
+    const navLinks = document.querySelectorAll(".sidebar-link")
+    navLinks.forEach(x => {
+        x.addEventListener("click", function (e) {
+            const icon = x.querySelector("i")
+            if (icon) {
+                collapse = icon.classList.contains("bi-caret-right")
+                if (collapse) {
+                    icon.classList.replace("bi-caret-right", "bi-caret-down")
+                } else {
+                    icon.classList.replace("bi-caret-down", "bi-caret-right")
+                }
+            }
+        })
+        /* const xx = bootstrap.Collapse.getOrCreateInstance(x)
+        x.addEventListener("shown.bs.collapse", e => {
+            const c = x.querySelectorAll(".sidebar-link")
+            c.forEach(y => {
+                const yy = bootstrap.Collapse.getOrCreateInstance(y)
+                yy.hide()
+            })
+        }) */
+
+        x.addEventListener("hidden.bs.collapse", e => {
+            console.log("hidden")
+        })
+    })
+
+    const activeNavLink = document.querySelector(".lark-sidebar a[data-diary-link='{{ .ActiveDiaryLink }}']")
+    if (activeNavLink) {
+        activeNavLink.classList.add("active")
+        let a = activeNavLink
+        while (a) {
+            a = a.parentNode
+            if (a && a.nodeName.toLowerCase() == "li") {
+                let l = a.querySelector(".sidebar-link")
+                if (l) {
+                    l.click()
+                }
+            }
+        }
+    }
+
+
+</script>
+{{ end }}
