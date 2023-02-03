@@ -1,9 +1,71 @@
 <!doctype html>
 <html lang="en">
-  {{ template "head" . }}
-  <body>
-    <h1>Hello, world!</h1>
-    
-    {{ template "footer" . }}
-  </body>
+{{ template "head" . }}
+
+<body class="d-flex min-vh-100 w-100 flex-column">
+  {{ template "header" . }}
+
+  <main class="container my-4">
+    <div class="accordion">
+      {{ range .Items.Sites }}
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="header{{ .Id }}">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ .Id }}"
+            aria-expanded="false" aria-controls="collapse{{ .Id }}">
+            {{ .Name }}
+            <span class="badge text-bg-primary ms-2 small" id="state{{ .Id }}">Primary</span>
+          </button>
+        </h2>
+        <div id="collapse{{ .Id }}" class="accordion-collapse collapse" aria-labelledby="header{{ .Id }}">
+          <div class="accordion-body">
+            <div>
+              <code>{{ .Description }}</code>
+            </div>
+
+            <div class="container">
+              <div clas="row">
+                <div class="col-md my-2">
+                  <button class="btn btn-primary">Start</button>
+                </div>
+  
+                <div class="col-md my-2">
+                  <button class="btn btn-danger" data-id="{{ .Id }}">Stop</button>
+                </div>
+  
+                <div class="col-md my-2">
+                  <button class="btn btn-light" data-id="{{ .Id }}">Restart</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {{ end }}
+
+
+    </div>
+  </main>
+
+  {{ template "footer" . }}
+
+  <script>
+    function start(id) {
+
+    }
+
+    function stop(id) {
+
+    }
+
+    function restart(id) {
+
+    }
+
+    function check() {
+      
+    }
+  </script>
+</body>
+
 </html>

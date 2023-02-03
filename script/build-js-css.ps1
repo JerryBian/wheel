@@ -16,6 +16,7 @@ $jobs += Start-ThreadJob -Name home_css -ScriptBlock {
     npx sass $(Join-Path $using:WWWRootLoc style style.scss) $(Join-Path $using:WWWRootLoc style.css)
     uglifycss --ugly-comments `
         --output $(Join-Path $using:WWWRootLoc style.min.css) `
+        $(Join-Path $using:NodeModulesLoc bootstrap dist css bootstrap.css) `
         $(Join-Path $using:WWWRootLoc style.css)
     Write-Output "CSS completed"
 }
